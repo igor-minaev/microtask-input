@@ -1,33 +1,28 @@
 import './App.css'
+import {useState} from "react";
+import {FullInput} from "./components/FullInput.tsx";
 
 function App() {
-  return (
-      <div className="app">
-        <div>
-          <h3>What to learn</h3>
-          <div>
-            <input/>
-            <button>+</button>
-          </div>
-          <ul>
-            <li>
-              <input type="checkbox" checked={true}/> <span>HTML&CSS</span>
-            </li>
-            <li>
-              <input type="checkbox" checked={true}/> <span>JS</span>
-            </li>
-            <li>
-              <input type="checkbox" checked={false}/> <span>React</span>
-            </li>
-          </ul>
-          <div>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
-          </div>
+    const [message, setMessage] = useState([
+            {message: "message1"},
+            {message: "message2"},
+            {message: "message3"}
+        ]
+    )
+
+    const addMessage = (title: string) => {
+        const newMessage = {message: title}
+        setMessage([newMessage, ...message])
+    }
+
+    return (
+        <div className="app">
+            <FullInput addMessage={addMessage}/>
+            {message.map((m, i) => (
+                <div key={i}>{m.message}</div>
+            ))}
         </div>
-      </div>
-  )
+    )
 }
 
 export default App
